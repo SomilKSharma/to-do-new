@@ -1,10 +1,16 @@
-<form (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" #todoForm="ngForm">
     <div class="mb-3">
         <label for="desc" class="form-label">Add Task</label>
-        <input type="text" [(ngModel)]="desc" class="form-control" name="desc" required>
+        <input type="text" [(ngModel)]="desc" class="form-control" name="desc" required pattern="^\S.*$"
+            #descInput="ngModel" />
+        <div *ngIf="descInput.invalid && (descInput.dirty || descInput.touched)" class="text-danger">
+            <div *ngIf="descInput.errors.required">Task is required.</div>
+            <div *ngIf="descInput.errors.pattern">Task cannot start with a space.</div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Add Task</button>
+    <button type="submit" class="btn btn-primary" [disabled]="todoForm.invalid">Add Task</button>
 </form>
+
 <h2 class="mb-3 container text-danger text-center">Task Pending</h2>
 <ul id="todoList" class="list-group mt-4" *ngFor="let todo of todos">
     <li class="list-group-item" *ngIf="todo.active">
