@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { TodoService } from '../../todo.service';
 import { Todo } from '../../todo.model';
 
@@ -9,6 +9,7 @@ import { Todo } from '../../todo.model';
 })
 export class TodosComponent implements OnInit {
   todos: Todo[] = [];
+  desc: string;
 
   constructor(private todoService: TodoService) {}
 
@@ -22,7 +23,34 @@ export class TodosComponent implements OnInit {
     this.todoService.deleteTodo(todo);
   }
 
-  addTodo(todo: Todo) {
-    this.todoService.addTodo(todo);
+  addTodo() {
+    if (this.desc) {
+      const todo: Todo = {
+        desc: this.desc,
+        active: true
+      };
+      this.todoService.addTodo(todo);
+      this.desc = '';
+    }
+  }
+
+  onSubmit() {
+    if (this.desc) {
+      const todo: Todo = {
+        desc: this.desc,
+        active: true
+      };
+      this.todoService.addTodo(todo);
+      this.desc = '';
+    }
+  }
+
+  onClick(todo: Todo) {
+    this.todoService.deleteTodo(todo);
+  }
+
+  onComplete(todo: Todo) {
+    todo.active = false;
   }
 }
+

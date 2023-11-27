@@ -1,9 +1,22 @@
-<app-add-todo (todoAdd)="addTodo($event)"></app-add-todo>
+<form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label for="desc" class="form-label">Add Task</label>
+        <input type="text" [(ngModel)]="desc" class="form-control" name="desc" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Task</button>
+</form>
 <h2 class="mb-3 container text-danger text-center">Task Pending</h2>
 <ul id="todoList" class="list-group mt-4" *ngFor="let todo of todos">
-    <app-todo-item [todo]="todo" (todoDelete)="deleteTodo(todo)"></app-todo-item>
+    <li class="list-group-item" *ngIf="todo.active">
+        <span>{{todo.desc}}</span>
+        <button type="button" class="btn btn-success mr-2" (click)="onComplete(todo)">Completed</button>
+        <button type="button" class="btn btn-danger delete-btn" (click)="onClick(todo)">Delete</button>
+    </li>
 </ul>
 <h2 class="mb-3 container text-success text-center">Task Completed</h2>
 <ul id="todoList" class="list-group mt-4" *ngFor="let todo of todos">
-    <app-complete-todo [todo]="todo" (todoDelete)="deleteTodo(todo)"></app-complete-todo>
+    <li class="list-group-item" *ngIf="!todo.active">
+        <span>{{todo.desc}}</span>
+        <button type="button" class="btn btn-danger delete-btn" (click)="onClick(todo)">Delete</button>
+    </li>
 </ul>
