@@ -7,6 +7,7 @@ import { Todo } from '../../todo.model';
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css']
 })
+  
 export class TodosComponent implements OnInit {
   todos: Todo[] = [];
   desc: string;
@@ -23,7 +24,7 @@ export class TodosComponent implements OnInit {
     this.todoService.deleteTodo(todo);
   }
 
-  private addTodoItem() {
+  private addTodo() {
     const todo: Todo = {
       desc: this.desc,
       active: true
@@ -32,16 +33,14 @@ export class TodosComponent implements OnInit {
     this.desc = '';
   }
 
-  addTodo() {
+  addTodoItem() {
     if (this.desc) {
-      this.addTodoItem();
+      this.addTodo();
     }
   }
 
   onSubmit() {
-    if (this.desc) {
-      this.addTodoItem();
-    }
+    this.addTodoItem();
   }
 
   onClick(todo: Todo) {
