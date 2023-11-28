@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../todo.service';
 import { Todo } from '../../todo.model';
 
@@ -23,25 +23,24 @@ export class TodosComponent implements OnInit {
     this.todoService.deleteTodo(todo);
   }
 
+  private addTodoItem() {
+    const todo: Todo = {
+      desc: this.desc,
+      active: true
+    };
+    this.todoService.addTodo(todo);
+    this.desc = '';
+  }
+
   addTodo() {
     if (this.desc) {
-      const todo: Todo = {
-        desc: this.desc,
-        active: true
-      };
-      this.todoService.addTodo(todo);
-      this.desc = '';
+      this.addTodoItem();
     }
   }
 
   onSubmit() {
     if (this.desc) {
-      const todo: Todo = {
-        desc: this.desc,
-        active: true
-      };
-      this.todoService.addTodo(todo);
-      this.desc = '';
+      this.addTodoItem();
     }
   }
 
@@ -53,4 +52,3 @@ export class TodosComponent implements OnInit {
     todo.active = false;
   }
 }
-
