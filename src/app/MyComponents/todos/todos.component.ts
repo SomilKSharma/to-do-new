@@ -33,14 +33,8 @@ export class TodosComponent implements OnInit {
     this.desc = '';
   }
 
-  addTodoItem() {
-    if (this.desc) {
-      this.addTodo();
-    }
-  }
-
   onSubmit() {
-    this.addTodoItem();
+    this.addTodo();
   }
 
   onClick(todo: Todo) {
