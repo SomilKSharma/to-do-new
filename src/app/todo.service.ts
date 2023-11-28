@@ -26,14 +26,6 @@ export class TodoService {
     }
   }
 
-  completeTodo(todo: Todo): void {
-    const index = this.todos.indexOf(todo);
-    if (index !== -1) {
-      this.todos[index].active = false;
-      this.updateTodos();
-    }
-  }
-
   private updateTodos(): void {
     this.todosSubject.next([...this.todos]);
   }
